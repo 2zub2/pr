@@ -51,6 +51,9 @@ class Apple extends \yii\db\ActiveRecord
         parent::__construct($config);
     }
 
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return 'apples';
@@ -64,6 +67,12 @@ class Apple extends \yii\db\ActiveRecord
         $this->_state = $state;
     }
 
+    /**
+     * переопределен, чтобы предотвратить загрузку конструктора при заполнении из бд
+     * и для установки статуса на основании данных из бд
+     * @param array $row
+     * @return Model|\yii\db\ActiveRecord
+     */
     public static function instantiate($row)
     {
         $className = get_called_class();
@@ -71,7 +80,7 @@ class Apple extends \yii\db\ActiveRecord
             $className::$_prototype = unserialize(sprintf('O:%d:"%s":0:{}', strlen($className), $className));
         }
 
-        /** @var Model $obj */
+        /** @var Apple $obj */
         $obj = clone $className::$_prototype;
         $obj->init();
 
@@ -91,7 +100,7 @@ class Apple extends \yii\db\ActiveRecord
     }
 
     /**
-     *
+     * уронить яблоко на землю
      */
     public function fallToGround()
     {
@@ -99,6 +108,7 @@ class Apple extends \yii\db\ActiveRecord
     }
 
     /**
+     * съесть часть яблока
      * @param $percent
      * @throws \Exception
      */
