@@ -18,7 +18,7 @@ class m200825_170628_add_admin_user extends Migration
         $user = new User();
         $user->username = 'admin';
         $user->email = '1@1.ru';
-        $user->setPassword('Gfhjkm1');
+        $user->setPassword('admin');
         $user->generateAuthKey();
         $user->status = User::STATUS_ACTIVE;
         $user->save(false);
